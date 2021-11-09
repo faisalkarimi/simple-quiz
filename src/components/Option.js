@@ -4,28 +4,17 @@ import { QuizContext } from "../context/QuizContext";
 const Option = ({ answerId, optionId, option }) => {
   const { state, dispatch } = useContext(QuizContext);
   console.log(state.score);
+
   const handleSelect = (e) => {
-    // if (e.target.id === answerId) {
-    //   dispatch({
-    //     type: "PICK",
-    //     payload: { ...state, score: state.score + 1 },
-    //   });
-    // } else {
-    //   dispatch({
-    //     type: "PICK",
-    //     payload: { ...state },
-    //   });
-    // }
-    // console.log(state.score);
     if (e.target.id === answerId) {
       dispatch({
         type: "PICK",
-        payload: { ...state, correct: true },
+        payload: { ...state, correct: true, checked: true },
       });
     } else {
       dispatch({
         type: "PICK",
-        payload: { ...state, correct: false },
+        payload: { ...state, correct: false, checked: true },
       });
     }
   };
@@ -37,6 +26,7 @@ const Option = ({ answerId, optionId, option }) => {
         id={optionId}
         className="answer"
         onClick={handleSelect}
+        checked={state.checked}
       />
       <label htmlFor={optionId} id="a_text">
         {option}
